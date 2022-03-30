@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -21,7 +23,8 @@ public class Donation {
 
     private Integer amountOfMoney;
 
-    private Date dontaionDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dontaionDate;
 
     /**Asociez evenimentul in cadrul caruia fac donatia*/
     @ManyToOne(cascade = CascadeType.ALL)
