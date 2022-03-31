@@ -23,12 +23,7 @@ public class SocialCauseController {
     public  List<SocialCause> getAllSocialCauses(){
       return socialCauseService.getAllSocialCauses();
     }
-//  @GetMapping(value = "/{id}")
-//  public SubjectDto getSubject(@PathVariable("id") Long id) {
-//    Subject subject = subjectService.getSubject(id);
-//
-//    return subjectConverter.maptoDto(subject);
-//  }
+
   @GetMapping("/{id}")
   public  SocialCause getSocialCauseById(@PathVariable("id") Long id){
     return socialCauseService.getSocialCauseById(id);
@@ -39,7 +34,7 @@ public class SocialCauseController {
     }
   @DeleteMapping(value = "/{id}")
   public  void deleteSocialCause(@PathVariable Long id){
-    
+
     socialCauseService.deleteSocialCause(id);
 
   }

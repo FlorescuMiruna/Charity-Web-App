@@ -26,21 +26,21 @@ public class DonationController {
     public List<Donation> getAllDonations(){
         return donationService.getAllDonations();
     }
+
     @GetMapping("/{id}")
     public Donation getDonationById(@PathVariable("id") Long id){
         return donationService.getDonationById(id);
     }
-    @PostMapping(value = "")
-    public Donation saveDonation(@RequestBody Donation donation){
-        donationService.saveDonation(donation);
+
+    @PostMapping(value = "/event/{eventId}")
+    public Donation saveDonation(@RequestBody Donation donation, @PathVariable Long eventId){
+        donationService.saveDonation(donation,eventId);
         return donation;
 
     }
 
     @DeleteMapping(value = "/{id}")
     public  void deleteDonation(@PathVariable Long id){
-
-
         logger.info("Deleted donation with {}", id);
         donationService.deleteDonation(id);
 
