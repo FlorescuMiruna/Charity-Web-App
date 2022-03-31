@@ -4,20 +4,16 @@ import com.example.charity.dto.ErrorDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.List;
-
 //@ControllerAdvice
 //@ResponseBody
 @RestControllerAdvice
-public class CatalogExceptionHandler {
+public class MyExceptionHandler {
 
-    private Logger logger = LoggerFactory.getLogger(CatalogExceptionHandler.class);
+    private Logger logger = LoggerFactory.getLogger(MyExceptionHandler.class);
 
     @ExceptionHandler(value = {NotFoundException.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
