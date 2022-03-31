@@ -1,8 +1,10 @@
 package com.example.charity.controller;
 
+import com.example.charity.model.Event;
 import com.example.charity.model.Organization;
 import com.example.charity.service.OrganizationService;
 import com.example.charity.service.SocialCauseService;
+import org.aspectj.weaver.ast.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,13 @@ public class OrganizationController {
 
     }
 
+    @PutMapping("/{id}")
+    public Organization updateOrganization(@PathVariable Long id, @RequestBody Organization request) {
+
+        Organization organization = organizationService.updateOrganization(id,request);
+        return organization;
+    }
+
 
     @DeleteMapping(value = "/{id}")
     public  void deleteOrganization(@PathVariable Long id){
@@ -58,23 +67,7 @@ public class OrganizationController {
       Organization organization = organizationService.assignSocialCauseToOrganization(organizationId,socialCauseId);
       return organization;
     }
-//    @PutMapping("/{teacherId}/subject/{subjectId}")
-//    public TeacherDto assignSubjectToTeacher(@PathVariable(name = "teacherId") Long teacherId,
-//                                             @PathVariable(name = "subjectId") Long subjectId) {
-//        Teacher teacher = teacherService.assignSubjectToTeacher(teacherId, subjectId);
-//        return teacherConverter.maptoDto(teacher);
-//    }
-//
-//
-//    @PutMapping("/{subjectId}/students/{studentId}")
-//    Subject addStudentToSubject(@PathVariable Long subjectId, @PathVariable Long studentId)
-//    {
-//        Subject subject = subjectRepository.findById(subjectId).get();
-//        Student student = studentRepository.findById(studentId).get();
-//        subject.enrolledStudents.add(student);
-//        return subjectRepository.save(subject);
-//
-//    }
+
 
 
 }

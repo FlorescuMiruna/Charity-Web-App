@@ -57,4 +57,20 @@ public class EventService {
         event.setSocialCause(socialCause);
         return eventRepository.save(event);
     }
+
+    public Event updateEvent(Long id, Event eventUpdated) {
+        Optional<Event> eventOptional = eventRepository.findById(id);
+
+        if (eventOptional.isPresent()) {
+            eventUpdated.setId(id);
+            eventUpdated.setName(eventUpdated.getName() == null ? eventOptional.get().getName() : eventUpdated.getName());
+            eventUpdated.setDate(eventUpdated.getDate() == null ? eventOptional.get().getDate() : eventUpdated.getDate());
+            eventUpdated.setLocation(eventUpdated.getLocation() == null ? eventOptional.get().getLocation() : eventUpdated.getLocation());
+
+            return eventRepository.save(eventUpdated);
+        } else {
+            throw new NotFoundException("Event not found!", "event.not.found");
+        }
+    }
+
 }

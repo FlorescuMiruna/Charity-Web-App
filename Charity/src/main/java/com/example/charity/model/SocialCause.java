@@ -36,7 +36,7 @@ public class SocialCause {
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "socialCause",orphanRemoval = true)
+    @OneToMany(mappedBy = "socialCause")
     private Set<Event> events;
 
     @Override
@@ -47,4 +47,6 @@ public class SocialCause {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+
 }

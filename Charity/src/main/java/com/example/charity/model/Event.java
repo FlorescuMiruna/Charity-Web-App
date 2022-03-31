@@ -51,7 +51,7 @@ public class Event {
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "event",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "event",cascade = CascadeType.ALL)
     private Set<Donation> donations;
 
 

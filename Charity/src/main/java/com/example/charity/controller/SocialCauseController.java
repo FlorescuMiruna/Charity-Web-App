@@ -38,4 +38,12 @@ public class SocialCauseController {
     socialCauseService.deleteSocialCause(id);
 
   }
+
+
+  @PutMapping("/{id}")
+  public SocialCause updateSocialCause(@PathVariable Long id, @RequestBody SocialCause request) {
+
+    SocialCause socialCause = socialCauseService.updateSocialCause(id,request);
+    return socialCause;
+  }
 }

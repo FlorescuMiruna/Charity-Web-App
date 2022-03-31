@@ -5,6 +5,7 @@ import com.example.charity.model.Donation;
 import com.example.charity.model.SocialCause;
 import com.example.charity.repository.SocialCouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.Subject;
@@ -48,6 +49,18 @@ public class SocialCauseService {
         }
         else {
             throw new NotFoundException("Social cause not found", "social.cause.not.found");
+        }
+    }
+    public SocialCause updateSocialCause(Long id, SocialCause socilCauseUpdated) {
+        Optional<SocialCause> socialCauseOptional = socialCouseRepository.findById(id);
+
+        if (socialCauseOptional.isPresent()) {
+            socilCauseUpdated.setId(id);
+            socilCauseUpdated.setName(socilCauseUpdated.getName() == null ? socialCauseOptional.get().getName() : socilCauseUpdated.getName());
+            socilCauseUpdated.setDescription(socilCauseUpdated.getDescription() == null ? socialCauseOptional.get().getDescription() : socilCauseUpdated.getDescription());
+            return socialCouseRepository.save(socilCauseUpdated);
+        } else {
+            throw new NotFoundException("Social Cause not found!", "social.cause.not.found");
         }
     }
 }

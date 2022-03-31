@@ -3,10 +3,12 @@ package com.example.charity.service;
 import com.example.charity.exception.NotFoundException;
 
 
+import com.example.charity.model.Event;
 import com.example.charity.model.Organization;
 
 import com.example.charity.model.SocialCause;
 import com.example.charity.repository.OrganizationRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,11 +61,22 @@ public class OrganizationService {
         organization.getSocialCauses().add(socialCause);
         return organizationRepository.save(organization);
     }
-//    public Teacher assignSubjectToTeacher(Long teacherId, Long subjectId) {
-//        Teacher teacher = getTeacher(teacherId);
-//        Subject subject = subjectService.getSubject(subjectId);
-//        teacher.getSubjects().add(subject);
-//        return teacherRepository.save(teacher);
-//    }
+
+    public Organization updateOrganization(Long id, Organization organizationUpdated) {
+        Optional<Organization> organizationOptional = organizationRepository.findById(id);
+
+        if (organizationOptional.isPresent()) {
+            organizationUpdated.setId(id);
+            organizationUpdated.setName(organizationUpdated.getName() == null ? organizationOptional.get().getName() : organizationUpdated.getName());
+            organizationUpdated.setDescription(organizationUpdated.getDescription() == null ? organizationOptional.get().getDescription() : organizationUpdated.getDescription());
+            organizationUpdated.setFoundingDate(organizationUpdated.getFoundingDate() == null ? organizationOptional.get().getFoundingDate() : organizationUpdated.getFoundingDate());
+
+            return organizationRepository.save(organizationUpdated);
+        } else {
+            throw new NotFoundException("Organization not found!", "organization.not.found");
+        }
+    }
+
+
 
 }

@@ -1,6 +1,8 @@
 package com.example.charity.controller;
 
 import com.example.charity.model.Donation;
+import com.example.charity.model.Event;
+import com.example.charity.model.Organization;
 import com.example.charity.service.DonationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +35,15 @@ public class DonationController {
     }
 
     @PostMapping(value = "/event/{eventId}")
-    public Donation saveDonation(@RequestBody Donation donation, @PathVariable Long eventId){
-        donationService.saveDonation(donation,eventId);
+    public Donation saveDonationWithEvent(@RequestBody Donation donation, @PathVariable Long eventId){
+        donationService.saveDonationWithEvent(donation,eventId);
+        return donation;
+
+    }
+
+    @PostMapping(value = "")
+    public Donation saveDonation(@RequestBody Donation donation){
+        donationService.saveDonation(donation);
         return donation;
 
     }
@@ -45,4 +54,21 @@ public class DonationController {
         donationService.deleteDonation(id);
 
     }
+
+    @PutMapping("/{id}")
+    public Donation updateOrganization(@PathVariable Long id, @RequestBody Donation request) {
+
+        Donation donation = donationService.updateDonation(id,request);
+        return donation;
+    }
+
+    @PutMapping("/{donationId}/event/{eventId}")
+    Donation assignEventToDonation(@PathVariable Long donationId, @PathVariable Long eventId) {
+
+
+        return donationService.assignEventToDonation(donationId,eventId);
+
+    }
+
+
 }

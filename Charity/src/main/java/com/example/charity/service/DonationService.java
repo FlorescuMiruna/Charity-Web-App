@@ -3,6 +3,7 @@ package com.example.charity.service;
 import com.example.charity.exception.NotFoundException;
 import com.example.charity.model.Donation;
 import com.example.charity.model.Event;
+import com.example.charity.model.SocialCause;
 import com.example.charity.repository.DonationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,9 @@ public class DonationService {
         return donationRepository.findAll();
     }
 
-    public Donation saveDonation(Donation donation, Long eventId) {
+    public Donation saveDonationWithEvent(Donation donation, Long eventId) {
         Event event = eventService.getEventById(eventId);
+        event.setTotalAmountOfMoney(event.getTotalAmountOfMoney() + donation.getAmountOfMoney());
         donation.setEvent(event);
         return donationRepository.save(donation);
     }
@@ -47,5 +49,28 @@ public class DonationService {
         else {
             throw new NotFoundException("Donation not found", "donation.not.found");
         }
+    }
+    public Donation updateDonation(Long id, Donation donationUpdated) {
+        Optional<Donation> donationOptional = donationRepository.findById(id);
+
+        if (donationOptional.isPresent()) {
+            donationUpdated.setId(id);
+            donationUpdated.setAmountOfMoney(donationUpdated.getAmountOfMoney() == null ? donationOptional.get().getAmountOfMoney() : donationUpdated.getAmountOfMoney());
+            donationUpdated.setDontaionDate(donationUpdated.getDontaionDate() == null ? donationOptional.get().getDontaionDate() : donationUpdated.getDontaionDate());
+            return donationRepository.save(donationUpdated);
+        } else {
+            throw new NotFoundException("Event not found!", "event.not.found");
+        }
+    }
+
+    public Donation saveDonation(Donation donation) {
+        return donationRepository.save(donation);
+    }
+
+    public Donation assignEventToDonation(Long donationId, Long eventId) {
+        Donation donation = getDonationById(donationId);
+        Event event = eventService.getEventById(eventId);
+        donation.setEvent(event);
+        return donationRepository.save(donation);
     }
 }
