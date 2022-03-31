@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -26,19 +27,26 @@ public class Event {
     private String location;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    private LocalDate date;
 
-    private Integer totalAmountOfMoney;
+    private Integer totalAmountOfMoney = 0;
 
 //    /** Un eveniment caritabil sustine o singura cauza */
 //    @ManyToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name="social_cause_id")
 //    private SocialCause socialCause;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "social_cause_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-  //  @JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "social_cause_id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//  //  @JsonIgnore
+//    private SocialCause socialCause;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "social_cause_id", referencedColumnName = "id")
     private SocialCause socialCause;
+
+
 
 }

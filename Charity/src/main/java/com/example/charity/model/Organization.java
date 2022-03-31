@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.persistence.*;
 import javax.security.auth.Subject;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -26,7 +27,7 @@ public class Organization {
     private String Name;
     private String description;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date foundingDate;
+    private LocalDate foundingDate;
 
     /** Un ONG poate sustine mai multe cauze sociale, iar o cauza sociala poate fi sustinuta
      * de mai multe ONG-uri */

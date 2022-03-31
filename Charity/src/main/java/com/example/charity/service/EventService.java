@@ -1,11 +1,9 @@
 package com.example.charity.service;
 
 import com.example.charity.exception.NotFoundException;
-import com.example.charity.model.Donation;
 import com.example.charity.model.Event;
 import com.example.charity.model.SocialCause;
 import com.example.charity.repository.EventRepository;
-import com.example.charity.repository.SocialCouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +13,12 @@ import java.util.Optional;
 @Service
 public class EventService {
     public final EventRepository eventRepository;
-    public final SocialCauseService socialCouseService;
+    public final SocialCauseService socialCauseService;
 
     @Autowired
-    public EventService(EventRepository eventRepository, SocialCauseService socialCouseService) {
+    public EventService(EventRepository eventRepository, SocialCauseService socialCauseService) {
         this.eventRepository = eventRepository;
-        this.socialCouseService = socialCouseService;
+        this.socialCauseService = socialCauseService;
     }
 
     public List<Event> getAllEvents() {
@@ -51,5 +49,12 @@ public class EventService {
         else {
             throw new NotFoundException("Event not found", "event.not.found");
         }
+    }
+
+    public Event assignSocialCauseToEvent(Long eventId, Long socialCauseId) {
+        Event event = getEventById(eventId);
+        SocialCause socialCause = socialCauseService.getSocialCauseById(socialCauseId);
+        event.setSocialCause(socialCause);
+        return eventRepository.save(event);
     }
 }

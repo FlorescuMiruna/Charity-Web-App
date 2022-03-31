@@ -35,6 +35,10 @@ public class SocialCause {
     private Set<Organization> organizations = new HashSet<>();
 
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "socialCause")
+    private Set<Event> events;
+
     @Override
     public String toString() {
         return "SocialCause{" +

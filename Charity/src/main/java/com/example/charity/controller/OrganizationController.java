@@ -46,7 +46,6 @@ public class OrganizationController {
     }
 
 
-
     @DeleteMapping(value = "/{id}")
     public  void deleteOrganization(@PathVariable Long id){
         logger.info("Deleted organization with {}", id);
