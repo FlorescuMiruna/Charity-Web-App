@@ -8,8 +8,10 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.security.auth.Subject;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "event")
@@ -46,6 +48,11 @@ public class Event {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "social_cause_id", referencedColumnName = "id")
     private SocialCause socialCause;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "event",cascade = CascadeType.ALL,orphanRemoval = true)
+    private Set<Donation> donations;
 
 
 

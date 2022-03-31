@@ -27,7 +27,9 @@ public class Donation {
     private LocalDate dontaionDate;
 
     /**Asociez evenimentul in cadrul caruia fac donatia*/
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="event_id")
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
     private Event event;
 }
