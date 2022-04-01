@@ -27,6 +27,8 @@ public class SocialCause {
     private Long id;
 
     private String name;
+
+    @Lob
     private String description;
 
     @JsonIgnore

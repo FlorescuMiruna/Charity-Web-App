@@ -45,6 +45,14 @@ public class DonationService {
         Optional<Donation> donation = donationRepository.findById(id);
         if(donation.isPresent()){
             donationRepository.delete(donation.get());
+
+//            if(donation.get().getEvent() != null)
+//            {
+//                Integer money =  donation.get().getEvent().getTotalAmountOfMoney() - donation.get().getAmountOfMoney();
+//
+//
+//                donation.get().getEvent().setTotalAmountOfMoney(money);
+//            }
         }
         else {
             throw new NotFoundException("Donation not found", "donation.not.found");
@@ -56,10 +64,11 @@ public class DonationService {
         if (donationOptional.isPresent()) {
             donationUpdated.setId(id);
             donationUpdated.setAmountOfMoney(donationUpdated.getAmountOfMoney() == null ? donationOptional.get().getAmountOfMoney() : donationUpdated.getAmountOfMoney());
+
             donationUpdated.setDontaionDate(donationUpdated.getDontaionDate() == null ? donationOptional.get().getDontaionDate() : donationUpdated.getDontaionDate());
             return donationRepository.save(donationUpdated);
         } else {
-            throw new NotFoundException("Event not found!", "event.not.found");
+            throw new NotFoundException("Donation not found!", "donation.not.found");
         }
     }
 

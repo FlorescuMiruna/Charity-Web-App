@@ -25,6 +25,8 @@ public class Organization {
     private Long id;
 
     private String Name;
+
+    @Lob
     private String description;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate foundingDate;
