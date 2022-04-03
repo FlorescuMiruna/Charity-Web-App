@@ -7,12 +7,13 @@ import com.example.charity.service.DonationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/donation")
+@RequestMapping(value="/api/donation")
 public class DonationController {
 
     private final DonationService donationService;
@@ -33,6 +34,7 @@ public class DonationController {
     public Donation getDonationById(@PathVariable("id") Long id){
         return donationService.getDonationById(id);
     }
+
 
     @PostMapping(value = "/event/{eventId}")
     public Donation saveDonationWithEvent(@RequestBody Donation donation, @PathVariable Long eventId){

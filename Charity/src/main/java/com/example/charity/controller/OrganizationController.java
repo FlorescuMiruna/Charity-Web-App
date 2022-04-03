@@ -8,13 +8,14 @@ import org.aspectj.weaver.ast.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.Subject;
 import java.util.List;
 
 @RestController
-@RequestMapping("/organization")
+@RequestMapping("/api/organization")
 public class OrganizationController {
     public final OrganizationService organizationService;
     public final SocialCauseService socialCauseService;
@@ -40,13 +41,14 @@ public class OrganizationController {
         return organizationService.getOrganizationById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "")
     public Organization saveOrganization(@RequestBody Organization organization){
         organizationService.saveOrganization(organization);
         return organization;
 
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public Organization updateOrganization(@PathVariable Long id, @RequestBody Organization request) {
 
@@ -54,13 +56,14 @@ public class OrganizationController {
         return organization;
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public  void deleteOrganization(@PathVariable Long id){
         logger.info("Deleted organization with {}", id);
         organizationService.deleteOrganization(id);
 
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{organizationId}/social-cause/{socialCauseId}")
     Organization assignSocialCauseToOrganization (@PathVariable Long organizationId, @PathVariable Long socialCauseId){
 
