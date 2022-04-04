@@ -33,16 +33,8 @@ public class Event {
 
     private Integer totalAmountOfMoney = 0;
 
-//    /** Un eveniment caritabil sustine o singura cauza */
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name="social_cause_id")
-//    private SocialCause socialCause;
+    /** Un eveniment caritabil sustine o singura cauza */
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "social_cause_id")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//  //  @JsonIgnore
-//    private SocialCause socialCause;
 
 
     @ManyToOne(cascade = CascadeType.ALL)
