@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Component
 @ConditionalOnExpression("${insert.start.data}")
@@ -26,9 +27,13 @@ public class DataSetup implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+        long count;
+        count = roleRepository.count();
+        if(count == 0){
+            saveRole(ERole.ROLE_USER);
+            saveRole(ERole.ROLE_ADMIN);
 
-        saveRole(ERole.ROLE_USER);
-        saveRole(ERole.ROLE_ADMIN);
+        }
 
 
     }
